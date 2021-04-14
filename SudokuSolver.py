@@ -15,7 +15,7 @@ def num_of_empty_sells():
 
 def solve():
     read_board()
-    while(num_of_empty_sells() != 0):
+    while (num_of_empty_sells() != 0):
         for i in range(9):
             for j in range(9):
                 if (board[i][j] == 0):
@@ -29,7 +29,7 @@ def read_board():
     for i in range(9):
         board.append(list(map(int, input().split())))
         for j in range(9):
-            if(board[i][j] != 0):
+            if (board[i][j] != 0):
                 posboard[i][j] = []
 
 
@@ -105,9 +105,10 @@ def advanced_check(i, j):
 
 
 def fill(i, j):
-    if(len(posboard[i][j]) == 1):
+    if (len(posboard[i][j]) == 1):
         board[i][j] = posboard[i][j][0]
         posboard[i][j] = []
+        # print_board()
         # print(i, j, board[i][j])
         # print(num_of_empty_sells())
 
@@ -147,7 +148,7 @@ def fill(i, j):
     0 0 0 2 3 0 0 4 0
 
     EVIL TEST
-    0 0 5 3 8 0 0 0 0
+    0 0 5 2 8 0 0 0 0
     0 0 0 0 0 4 1 0 0
     0 0 9 0 0 0 4 0 3
     9 0 0 7 0 0 0 6 0
