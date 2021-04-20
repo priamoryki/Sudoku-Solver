@@ -1,5 +1,5 @@
 # Sudoku-Solver
-This is Sudoku-Solver based on Python. At the moment, only the usual solution algorithms have been implemented.  
+This is Sudoku-Solver based on Python. At the moment, only the usual solution [algorithms](https://bbf.ru/magazine/26/7372/ "Only some of them") have been implemented.  
 You can see their essence here when I get my hands on them :).  
 
 # Code pros and cons
