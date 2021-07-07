@@ -4,26 +4,26 @@ __author__ = "Lymar Pavel"
 
 
 def print_board(board):
-        print('RESULTING BOARD:')
-        for i in board:
-            print(*i)
+    print('RESULTING BOARD:')
+    for i in board:
+        print(*i)
 
 
 '''
 Smart and fast solution
 Bad with evil tests (so far)
 '''
+
+
 def default_solution(n):
     board = []
-    posboard = [[[k for k in range(1, n ** 2 + 1)] for j in range(n ** 2)] for i in range(n ** 2)]
-
+    posboard = [[[k for k in range(1, n ** 2 + 1)] for _ in range(n ** 2)] for _ in range(n ** 2)]
 
     def num_of_empty_sells():
         res = 0
         for i in board:
             res += i.count(0)
         return res
-
 
     def solve():
         read_board()
@@ -35,8 +35,6 @@ def default_solution(n):
                         advanced_check(i, j)
                         fill(i, j)
 
-
-
     def read_board():
         for i in range(n ** 2):
             board.append(list(map(int, input().split())))
@@ -44,13 +42,11 @@ def default_solution(n):
                 if (board[i][j] != 0):
                     posboard[i][j] = []
 
-
     def update_posboard(i, j, value):
         try:
             posboard[i][j].remove(value)
         except (Exception):
             pass
-
 
     def get_shifts(v):
         result = [i for i in range(1, n)]
@@ -60,7 +56,6 @@ def default_solution(n):
                 shift -= 1
             result[i] -= shift
         return result
-
 
     def default_check(i, j):
         for new_i in range(n ** 2):
@@ -74,7 +69,6 @@ def default_solution(n):
         for i_shift in i_shifts:
             for j_shift in j_shifts:
                 update_posboard(i, j, board[i + i_shift][j + j_shift])
-
 
     def advanced_check(i, j):
         for value in posboard[i][j]:
@@ -104,14 +98,12 @@ def default_solution(n):
             if (is_change):
                 posboard[i][j] = [value]
 
-
     def fill(i, j):
         if (len(posboard[i][j]) == 1):
             board[i][j] = posboard[i][j].pop()
             # print_board(board)
             # print(i, j, board[i][j])
             # print(num_of_empty_sells())
-
 
     solve()
     return board
@@ -120,13 +112,14 @@ def default_solution(n):
 '''
 Slow, but better with evil tests (so far)
 '''
+
+
 def dfs_solution(n):
     board = []
     row_constrain = [[0] * (n ** 2) for i in range(n ** 2)]
     col_constrain = [[0] * (n ** 2) for i in range(n ** 2)]
     box_constrain = [[0] * (n ** 2) for i in range(n ** 2)]
 
-    
     def solve():
         read_board()
         for i in range(n ** 2):
@@ -136,20 +129,18 @@ def dfs_solution(n):
                 box = i // n * n + j // n
                 tmp = int(board[i][j]) - 1
                 row_constrain[i][tmp], col_constrain[j][tmp], box_constrain[box][tmp] = 1, 1, 1
-        dfs(board, 0, 0)
-
+        dfs(0, 0)
 
     def read_board():
         for i in range(n ** 2):
             board.append(list(map(int, input().split())))
-        
 
-    def dfs(board, r, c):
+    def dfs(r, c):
         if (r == n ** 2):
             return True
         next_r, next_c = (r, c + 1) if c != n ** 2 - 1 else (r + 1, 0)
         if (board[r][c] != 0):
-            return dfs(board, next_r, next_c)
+            return dfs(next_r, next_c)
 
         box = r // n * n + c // n
         for i in range(n ** 2):
@@ -157,7 +148,7 @@ def dfs_solution(n):
                 continue
             row_constrain[r][i], col_constrain[c][i], box_constrain[box][i] = 1, 1, 1
             board[r][c] = str(i + 1)
-            if (dfs(board, next_r, next_c)):
+            if (dfs(next_r, next_c)):
                 return True
             board[r][c] = 0
             row_constrain[r][i], col_constrain[c][i], box_constrain[box][i] = 0, 0, 0
@@ -241,7 +232,6 @@ def dfs_solution(n):
     5  0  0  0  7  0  0  16 12 0  13 0  1  0  0  0
     0  0  0  0  0  0  3  11 0  15 0  0  0  0  14 2
 '''
-
 
 print_board(default_solution(4))
 
