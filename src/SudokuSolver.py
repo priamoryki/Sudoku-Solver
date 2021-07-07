@@ -9,13 +9,11 @@ def print_board(board):
         print(*i)
 
 
-'''
-Smart and fast solution
-Bad with evil tests (so far)
-'''
-
-
 def default_solution(n):
+    """
+    Smart and fast solution.
+    Bad with evil tests (so far).
+    """
     board = []
     posboard = [[[k for k in range(1, n ** 2 + 1)] for _ in range(n ** 2)] for _ in range(n ** 2)]
 
@@ -45,7 +43,7 @@ def default_solution(n):
     def update_posboard(i, j, value):
         try:
             posboard[i][j].remove(value)
-        except (Exception):
+        except (ValueError):
             pass
 
     def get_shifts(v):
@@ -109,16 +107,12 @@ def default_solution(n):
     return board
 
 
-'''
-Slow, but better with evil tests (so far)
-'''
-
-
 def dfs_solution(n):
+    """Slow, but better with evil tests (so far)"""
     board = []
-    row_constrain = [[0] * (n ** 2) for i in range(n ** 2)]
-    col_constrain = [[0] * (n ** 2) for i in range(n ** 2)]
-    box_constrain = [[0] * (n ** 2) for i in range(n ** 2)]
+    row_constrain = [[0] * (n ** 2) for _ in range(n ** 2)]
+    col_constrain = [[0] * (n ** 2) for _ in range(n ** 2)]
+    box_constrain = [[0] * (n ** 2) for _ in range(n ** 2)]
 
     def solve():
         read_board()
