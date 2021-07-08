@@ -2,6 +2,16 @@
 
 __author__ = "Lymar Pavel"
 
+from math import sqrt
+from copy import deepcopy
+
+
+def read_board(n):
+    board = []
+    for i in range(n ** 2):
+        board.append(list(map(int, input().split())))
+    return board
+
 
 def print_board(board):
     print('RESULTING BOARD:')
@@ -9,13 +19,14 @@ def print_board(board):
         print(*i)
 
 
-def default_solution(n):
+def default_solution(board):
     """
     Smart and fast solution.
     Bad with evil tests (so far).
     """
-    board = []
-    posboard = [[[k for k in range(1, n ** 2 + 1)] for _ in range(n ** 2)] for _ in range(n ** 2)]
+    n = int(sqrt(len(board)))
+    board = deepcopy(board)
+    posboard = [[[k for k in range(1, n ** 2 + 1)] if board[i][j] == 0 else [] for j in range(n ** 2)] for i in range(n ** 2)]
 
     def num_of_empty_sells():
         res = 0
@@ -24,7 +35,6 @@ def default_solution(n):
         return res
 
     def solve():
-        read_board()
         while (num_of_empty_sells() != 0):
             for i in range(n ** 2):
                 for j in range(n ** 2):
@@ -32,13 +42,6 @@ def default_solution(n):
                         default_check(i, j)
                         advanced_check(i, j)
                         fill(i, j)
-
-    def read_board():
-        for i in range(n ** 2):
-            board.append(list(map(int, input().split())))
-            for j in range(n ** 2):
-                if (board[i][j] != 0):
-                    posboard[i][j] = []
 
     def update_posboard(i, j, value):
         try:
@@ -100,6 +103,7 @@ def default_solution(n):
         if (len(posboard[i][j]) == 1):
             board[i][j] = posboard[i][j].pop()
             # print_board(board)
+            # print_board(posboard)
             # print(i, j, board[i][j])
             # print(num_of_empty_sells())
 
@@ -107,15 +111,15 @@ def default_solution(n):
     return board
 
 
-def dfs_solution(n):
+def dfs_solution(board):
     """Slow, but better with evil tests (so far)"""
-    board = []
+    n = int(sqrt(len(board)))
+    board = deepcopy(board)
     row_constrain = [[0] * (n ** 2) for _ in range(n ** 2)]
     col_constrain = [[0] * (n ** 2) for _ in range(n ** 2)]
     box_constrain = [[0] * (n ** 2) for _ in range(n ** 2)]
 
     def solve():
-        read_board()
         for i in range(n ** 2):
             for j in range(n ** 2):
                 if (board[i][j] == 0):
@@ -124,10 +128,6 @@ def dfs_solution(n):
                 tmp = int(board[i][j]) - 1
                 row_constrain[i][tmp], col_constrain[j][tmp], box_constrain[box][tmp] = 1, 1, 1
         dfs(0, 0)
-
-    def read_board():
-        for i in range(n ** 2):
-            board.append(list(map(int, input().split())))
 
     def dfs(r, c):
         if (r == n ** 2):
@@ -227,6 +227,10 @@ def dfs_solution(n):
     0  0  0  0  0  0  3  11 0  15 0  0  0  0  14 2
 '''
 
-print_board(default_solution(4))
 
-print_board(dfs_solution(4))
+n = 3
+board = read_board(n)
+
+print_board(default_solution(board))
+
+#print_board(dfs_solution(board))
