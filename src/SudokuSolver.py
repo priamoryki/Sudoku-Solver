@@ -35,13 +35,18 @@ def default_solution(board):
         return res
 
     def solve():
+        iters_without_update = 0
         while (num_of_empty_sells() != 0):
+            if (iters_without_update > 2 * n ** 4):
+                break
             for i in range(n ** 2):
                 for j in range(n ** 2):
                     if (board[i][j] == 0):
                         default_check(i, j)
                         advanced_check(i, j)
                         fill(i, j)
+                        if (board[i][j] == 0):
+                            iters_without_update += 1
 
     def update_posboard(i, j, value):
         try:
@@ -173,21 +178,12 @@ def dfs_solution(board):
     return board
 
 
+def mixed_solution(board):
+    return dfs_solution(default_solution(board))
+
+
 if (__name__ == '__main__'):
-    n = 3
-    board = [
-        [0, 0, 5, 2, 8, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 4, 1, 0, 0],
-        [0, 0, 9, 0, 0, 0, 4, 0, 3],
-        [9, 0, 0, 7, 0, 0, 0, 6, 0],
-        [0, 8, 0, 0, 1, 0, 0, 4, 0],
-        [0, 5, 0, 0, 0, 9, 0, 0, 1],
-        [4, 0, 6, 0, 0, 0, 2, 0, 0],
-        [0, 0, 7, 4, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 2, 5, 6, 0, 0]
-    ]
-    # board = read_board(n)
+    n = int(input().split()[0])
+    board = read_board(n)
 
-    print_board(default_solution(board))
-
-    # print_board(dfs_solution(board))
+    print_board(mixed_solution(board))
