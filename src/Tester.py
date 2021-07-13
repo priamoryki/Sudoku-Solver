@@ -8,13 +8,13 @@ def read_board(file):
         return [list(map(int, inp.readline().split())) for _ in range(n ** 2)]
 
 
-def run_tests(realisation=mixed_solution):
+def run_tests(realization=mixed_solution):
     for file in listdir('tests/sudokus'):
-        '''if (file in ['EVIL1.txt', 'EVIL2.txt', 's04b.txt', 's05a.txt', 's05b.txt', 's05c.txt', 's12a.txt', 's12b.txt',
-                     's12c.txt', 's15a.txt', 's15b.txt', 's15c.txt', 's16.txt']):
+        '''if (file in ['EVIL1.txt', 'EVIL2.txt', 's04b.txt', 's05a.txt', 's05b.txt', 's05c.txt', 's12a.txt', 
+        's12b.txt', 's12c.txt', 's15a.txt', 's15b.txt', 's15c.txt', 's16.txt']):
             continue'''
         board = read_board('tests/sudokus/' + file)
-        result = realisation(board)
+        result = realization(board)
         expected = read_board('tests/solutions/' + file)
         if (result != expected):
             print('--------------------------------------------------')
