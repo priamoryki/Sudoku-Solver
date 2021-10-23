@@ -1,8 +1,8 @@
 from os import listdir
-from SudokuSolver import dfs_solution, default_solution, mixed_solution
+from SudokuSolver import dfs_solution, default_solution, mixed_solution, BOARD_TYPE
 
 
-def read_board(file):
+def read_board(file) -> BOARD_TYPE:
     with open(file, 'r') as inp:
         n = int(inp.readline())
         return [list(map(int, inp.readline().split())) for _ in range(n ** 2)]
