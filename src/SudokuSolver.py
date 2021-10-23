@@ -5,8 +5,10 @@ __author__ = "Lymar Pavel"
 from math import sqrt
 from copy import deepcopy
 
+BOARD_TYPE = list[list[int]]
 
-def read_board(n):
+
+def read_board(n) -> BOARD_TYPE:
     board = []
     for i in range(n ** 2):
         board.append(list(map(int, input().split())))
@@ -19,7 +21,7 @@ def print_board(board):
         print(*i)
 
 
-def default_solution(board):
+def default_solution(board) -> BOARD_TYPE:
     """
     Smart and fast solution.
     Bad with evil tests (so far).
@@ -28,16 +30,16 @@ def default_solution(board):
     board = deepcopy(board)
     posboard = [[[*range(1, n ** 2 + 1)] if board[i][j] == 0 else [] for j in range(n ** 2)] for i in range(n ** 2)]
 
-    def num_of_empty_sells():
+    def num_of_empty_sells() -> int:
         res = 0
         for i in board:
             res += i.count(0)
         return res
 
-    def solve():
+    def solve() -> BOARD_TYPE:
         iters_without_update = 0
         while (num_of_empty_sells() != 0):
-            if (iters_without_update > 2 * n ** 4):
+            if (iters_without_update > 4 * n ** 4):
                 break
             for i in range(n ** 2):
                 for j in range(n ** 2):
@@ -54,7 +56,7 @@ def default_solution(board):
         except (ValueError):
             pass
 
-    def get_shifts(v):
+    def get_shifts(v) -> list[int]:
         result = [*range(1, n)]
         shift = v % n + 1
         for i in range(len(result)):
@@ -139,7 +141,7 @@ def default_solution(board):
     return board
 
 
-def dfs_solution(board):
+def dfs_solution(board) -> BOARD_TYPE:
     """Slow, but better with evil tests (so far)"""
     n = int(sqrt(len(board)))
     board = deepcopy(board)
@@ -156,7 +158,7 @@ def dfs_solution(board):
                 row_constrain[i][tmp], col_constrain[j][tmp], box_constrain[box][tmp] = 1, 1, 1
         dfs(0, 0)
 
-    def dfs(r, c):
+    def dfs(r, c) -> bool:
         if (r == n ** 2):
             return True
         next_r, next_c = (r, c + 1) if c != n ** 2 - 1 else (r + 1, 0)
@@ -178,7 +180,7 @@ def dfs_solution(board):
     return board
 
 
-def mixed_solution(board):
+def mixed_solution(board) -> BOARD_TYPE:
     return dfs_solution(default_solution(board))
 
 
