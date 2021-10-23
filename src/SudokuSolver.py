@@ -15,13 +15,13 @@ def read_board(n) -> BOARD_TYPE:
     return board
 
 
-def print_board(board):
+def print_board(board: BOARD_TYPE):
     print('RESULTING BOARD:')
     for i in board:
         print(*i)
 
 
-def default_solution(board) -> BOARD_TYPE:
+def default_solution(board: BOARD_TYPE) -> BOARD_TYPE:
     """
     Smart and fast solution.
     Bad with evil tests (so far).
@@ -36,7 +36,7 @@ def default_solution(board) -> BOARD_TYPE:
             res += i.count(0)
         return res
 
-    def solve() -> BOARD_TYPE:
+    def solve():
         iters_without_update = 0
         while (num_of_empty_sells() != 0):
             if (iters_without_update > 4 * n ** 4):
@@ -141,7 +141,7 @@ def default_solution(board) -> BOARD_TYPE:
     return board
 
 
-def dfs_solution(board) -> BOARD_TYPE:
+def dfs_solution(board: BOARD_TYPE) -> BOARD_TYPE:
     """Slow, but better with evil tests (so far)"""
     n = int(sqrt(len(board)))
     board = deepcopy(board)
@@ -180,7 +180,7 @@ def dfs_solution(board) -> BOARD_TYPE:
     return board
 
 
-def mixed_solution(board) -> BOARD_TYPE:
+def mixed_solution(board: BOARD_TYPE) -> BOARD_TYPE:
     return dfs_solution(default_solution(board))
 
 
