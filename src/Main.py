@@ -21,9 +21,9 @@ def get_matrix():
         for j in range(len(matrix[i])):
             try:
                 matrix[i][j] = int(matrix[i][j])
-            except (ValueError):
+            except ValueError:
                 matrix[i][j] = 0
-            if (not (0 <= matrix[i][j] <= n ** 2)):
+            if not (0 <= matrix[i][j] <= n ** 2):
                 matrix[i][j] = 0
     result = mixed_solution(matrix)
     canvas.delete("all")
